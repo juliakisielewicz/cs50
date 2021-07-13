@@ -30,11 +30,6 @@ int main(void)
             printf("#");
         }
         
-        for (int j = 1; j <= (height-i); j++)
-        {
-            printf(" ");
-        }
-        
         printf("\n");
         
     }
