@@ -23,7 +23,7 @@ int main(void)
     {
         printf("Player 1 wins!");
     }
-    else if ( score1 < score2)
+    else if (score1 < score2)
     {
         printf("Player 2 wins!");
     }
@@ -36,10 +36,10 @@ int main(void)
 
 int compute_score(string word)
 {
-    // TODO: Compute and return score for string
+    // Compute and return score for string
     int sum = 0;
-    char letter = ' ';
-    for(int i = 0; ((char)word[i]) != '\0'; i++)
+
+    for (int i = 0; ((char)word[i]) != '\0'; i++)
     {
         //printf("%c\n", word[i]);
         
@@ -54,6 +54,5 @@ int compute_score(string word)
         
     }
     
-    //printf("%i", sum);
     return sum;
 }
