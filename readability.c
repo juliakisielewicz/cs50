@@ -109,15 +109,13 @@ int calculateIndex(string txt)
         }
         else if (txt[i] == '.' || txt[i] == '!' || txt[i] == '?')
         {
-            if (i == strlen(txt) - 1)
-            {
-                words++;
-            }
             sentences++;
         }
     }
     
-    index = round(0.0588 * (letters * 100 / words) - 0.296 * (sentences * 100 / words) - 15.8);
+    words++;
+    
+    index = round(0.0588 * ((float)letters * 100 / (float) words) - 0.296 * ((float) sentences * 100 / (float) words) - 15.8);
     
     return index;
 }
