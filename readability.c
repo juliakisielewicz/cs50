@@ -20,6 +20,8 @@ int main(void)
     int words = countWords(text);
     int sentences = countSentences(text);
     
+    printf("l: %i, w: %i, s: %i\n", letters, words, sentences);
+    
     int grade;
     grade = round(0.0588 * (letters * 100 / words) - 0.296 * (sentences * 100 / words) - 15.8);
 
@@ -63,7 +65,7 @@ int countWords(string txt)
     
     for (int i = 0; i < strlen(txt); i++)
     {
-        if (isspace(txt[i]))
+        if (isspace(txt[i]) || txt[i] == '\'')
         {
             sum++;
         }
