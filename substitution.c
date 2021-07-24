@@ -6,7 +6,6 @@
 
 string encrypt(string plain, string key);
 
-
 int main(int argc, string argv[])
 {
     if (argc != 2)
@@ -29,6 +28,37 @@ int main(int argc, string argv[])
         }
     }
     //ONLY UNIQUE
+    int size = 26;
+    int occurences[26] = {0};
+    
+    for (int i = 0; i < strlen(argv[1]); i++)
+    {
+        if (islower(argv[1][i]))
+        {
+            occurences[argv[1][i] - 97]++;
+        }
+        else if (isupper(argv[1][i]))
+        {
+            occurences[argv[1][i] - 65]++;
+        }
+    }
+    
+    bool unique = true;
+    
+    for (int i = 0; i < size; i++)
+    {
+        if(occurences[i] != 1)
+        {
+            unique = false;
+        }
+    }
+        
+        if(! unique)
+        {
+            printf("Key must contain 26 unique characters.\n");
+            return 1;
+        }
+    
     
     string plaintext = get_string("plaintext: ");
     
