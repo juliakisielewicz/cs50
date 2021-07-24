@@ -9,7 +9,7 @@ int countLetters(string txt);
 int countWords(string txt);
 int countSentences(string txt);
 
-
+int calculateIndex(string txt);
 int main(void)
 {
     
@@ -24,6 +24,8 @@ int main(void)
     int grade;
     grade = round(0.0588 * (letters * 100 / words) - 0.296 * (sentences * 100 / words) - 15.8);
 
+
+    grade = calculateIndex(text)
     //Display result
     
     if (grade < 1)
@@ -86,4 +88,30 @@ int countSentences(string txt)
     }
     
     return sum;
+}
+
+
+int calculateIndex(string txt)
+{
+    int letters = 0, words = 0, sentences = 0, index = 0;
+    
+    for (int i = 0; i < strlen(txt); i++)
+    {
+        if (isalpha(txt[i]))
+        {
+            letters++;
+        }
+        else if (isspace(txt[i]))
+        {
+            words++;
+        }
+        else if (txt[i] == '.' || txt[i] == '!' || txt[i] == '?')
+        {
+            sentences++;
+        }
+    }
+    
+    index = round(0.0588 * (letters * 100 / words) - 0.296 * (sentences * 100 / words) - 15.8);
+    
+    return index;
 }
