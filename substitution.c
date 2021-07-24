@@ -47,17 +47,17 @@ int main(int argc, string argv[])
     
     for (int i = 0; i < size; i++)
     {
-        if(occurences[i] != 1)
+        if (occurences[i] != 1)
         {
             unique = false;
         }
     }
         
-        if(! unique)
-        {
-            printf("Key must contain 26 unique characters.\n");
-            return 1;
-        }
+    if (! unique)
+    {
+        printf("Key must contain 26 unique characters.\n");
+        return 1;
+    }
     
     
     string plaintext = get_string("plaintext: ");
