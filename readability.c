@@ -10,6 +10,7 @@ int countWords(string txt);
 int countSentences(string txt);
 
 int calculateIndex(string txt);
+
 int main(void)
 {
     
@@ -22,10 +23,11 @@ int main(void)
     
     // Calculate result
     int grade;
-    grade = round(0.0588 * (letters * 100 / words) - 0.296 * (sentences * 100 / words) - 15.8);
+    //grade = round(0.0588 * (letters * 100 / words) - 0.296 * (sentences * 100 / words) - 15.8);
 
 
-    grade = calculateIndex(text)
+    grade = calculateIndex(text);
+    
     //Display result
     
     if (grade < 1)
