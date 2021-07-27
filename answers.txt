@@ -1,11 +1,11 @@
 sort1 uses: bubble sort
 
-How do you know?: TODO
+How do you know?: it is the fastest program for sorting already sorted numbers
 
 sort2 uses: merge sort
 
-How do you know?: TODO
+How do you know?: it is the fastest program for sorting big random set of numbers
 
 sort3 uses: selection sort
 
-How do you know?: TODO
+How do you know?: it is the only one left xd
