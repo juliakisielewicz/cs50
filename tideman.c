@@ -289,11 +289,11 @@ void print_winner(void)
     bool winner = true;
     int winner_index = 0;
     
-    for (int i = 1; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
     {
         winner = true;
         
-        for (int j = 1; j < candidate_count; j++)
+        for (int j = 0; j < candidate_count; j++)
         {
             if (locked[j][i] == true)
             {
