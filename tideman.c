@@ -287,6 +287,7 @@ void lock_pairs(void)
 void print_winner(void)
 {
     bool winner = true;
+    int winner_index = 0;
     
     for (int i = 1; i < candidate_count; i++)
     {
@@ -306,6 +307,8 @@ void print_winner(void)
             printf("%s\n", candidates[i]);
         }
     }
+    
+    
     
     return;
 }
