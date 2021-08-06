@@ -32,6 +32,7 @@ bool vote(int rank, string name, int ranks[]);
 void record_preferences(int ranks[]);
 void add_pairs(void);
 void sort_pairs(void);
+bool cycle(int winner, int loser);
 void lock_pairs(void);
 void print_winner(void);
 
@@ -235,35 +236,49 @@ void sort_pairs(void)
     return;
 }
 
-// Lock pairs into the candidate graph in order, without creating cycles
-void lock_pairs(void)
-{
-    int wins[MAX] = {0};
-    bool equal = true;
 
+bool cycle(int winner, int loser)
+{
+    bool found = false;
     
-    for (int i = 0; i < pair_count; i++)
+    while (winner != loser)
     {
-        locked[pairs[i].winner][pairs[i].loser] = true;
-        wins[pairs[i].winner]++;
+        found = false;
         
-        equal = true;
-        
-        for (int j = 1; j < candidate_count; j++)
+        for (int i = 0; i < candidate_count; i++)
         {
-            if (wins[j] != wins[j - 1])
+            if (locked[i][winner])
             {
-                equal = false;
+                found = true;
+                winner = i;
             }
         }
         
-        if(equal == true)
+        if (!found)
         {
-            locked[pairs[i].winner][pairs[i].loser] = false;
-            wins[pairs[i].winner]--;
+            break;
         }
-
+        
     }
+    
+    if (winner == loser)
+        {
+            return true;
+        }
+    
+    return false;
+}
+
+// Lock pairs into the candidate graph in order, without creating cycles
+void lock_pairs(void)
+{
+   for (int i = 0; i < pair_count; i++)
+   {
+       if (!cycle(pairs[i].winner, pairs[i].loser))
+       {
+           locked[pairs[i].winner][pairs[i].loser] = true;
+       }
+   }
     
     return;
 }
