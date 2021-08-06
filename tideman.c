@@ -282,6 +282,7 @@ void print_winner(void)
             if (i != j && locked[i][j] == false)
             {
                 winner = false;
+                break;
             }
         }
         
