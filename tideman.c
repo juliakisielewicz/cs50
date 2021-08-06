@@ -27,7 +27,7 @@ int pair_count;
 int candidate_count;
 
 // Function prototypes
-void quick_sort( pair tab[], int left, int right );
+void quick_sort(pair tab[], int left, int right);
 bool vote(int rank, string name, int ranks[]);
 void record_preferences(int ranks[]);
 void add_pairs(void);
@@ -100,7 +100,7 @@ int main(int argc, string argv[])
 }
 
 
-void quick_sort( pair tab[], int left, int right )
+void quick_sort(pair tab[], int left, int right)
 {
     /*if ( right <= left) 
     {
@@ -117,17 +117,17 @@ void quick_sort( pair tab[], int left, int right )
     
     do
     {
-        while(pivot < preferences[pairs[i].winner][pairs[i].loser])
+        while (pivot < preferences[pairs[i].winner][pairs[i].loser])
         {
             i++;
         }
         
-        while(pivot > preferences[pairs[j].winner][pairs[j].loser])
+        while (pivot > preferences[pairs[j].winner][pairs[j].loser])
         {
             j--;
         }
         
-        if( i <= j )
+        if (i <= j)
         {
             //swap( tab[ i ], tab[ j ] );
             
@@ -138,16 +138,17 @@ void quick_sort( pair tab[], int left, int right )
             i++;
             j--;
         }
-    } while( i <= j );
+    }
+    while (i <= j);
     
     if (left < j)
     {
-        quick_sort( pairs, left, j );
+        quick_sort(pairs, left, j);
     }
    
-    if (right > i ) 
+    if (right > i) 
     {
-        quick_sort( pairs, i, right );
+        quick_sort(pairs, i, right);
     }
     return;
 }
@@ -169,22 +170,22 @@ bool vote(int rank, string name, int ranks[])
 // Update preferences given one voter's ranks
 void record_preferences(int ranks[])
 {
-        for (int i = 0; i < candidate_count; i++)
+    for (int i = 0; i < candidate_count; i++)
+    {
+        for (int j = i + 1; j < candidate_count; j++)
         {
-            for (int j = i + 1; j < candidate_count; j++)
-            {
-                preferences[ranks[i]][ranks[j]]++;
-            }    
-        }
-        
-        for (int i = 0; i < candidate_count; i++)
+            preferences[ranks[i]][ranks[j]]++;
+        }    
+    }
+    
+    for (int i = 0; i < candidate_count; i++)
+    {
+        for (int j = 0; j < candidate_count; j++)
         {
-            for (int j = 0; j < candidate_count; j++)
-            {
-                printf("%i ", preferences[i][j]);            
-            }  
-            printf("\n");
-        }
+            printf("%i ", preferences[i][j]);            
+        }  
+        printf("\n");
+    }
         
     return;
 }
@@ -196,7 +197,7 @@ void add_pairs(void)
     {
         for (int j = i + 1; j < candidate_count; j++)
         {
-            if(preferences[i][j] > preferences[j][i])
+            if (preferences[i][j] > preferences[j][i])
             {
                 pairs[pair_count].winner = i;
                 pairs[pair_count].loser = j;
@@ -262,9 +263,9 @@ bool cycle(int winner, int loser)
     }
     
     if (winner == loser)
-        {
-            return true;
-        }
+    {
+        return true;
+    }
     
     return false;
 }
@@ -272,14 +273,14 @@ bool cycle(int winner, int loser)
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-   for (int i = 0; i < pair_count; i++)
-   {
-       if (!cycle(pairs[i].winner, pairs[i].loser))
-       {
-           locked[pairs[i].winner][pairs[i].loser] = true;
-       }
-   }
-    
+    for (int i = 0; i < pair_count; i++)
+    {
+        if (!cycle(pairs[i].winner, pairs[i].loser))
+        {
+            locked[pairs[i].winner][pairs[i].loser] = true;
+        }
+    }
+
     return;
 }
 
