@@ -1,5 +1,6 @@
 #include "helpers.h"
 #include <math.h>
+#include <stdio.h>
 
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
@@ -103,8 +104,19 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
 {
     RGBTRIPLE tmp_image[height][width];
 
-    float GxKernel[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
-    float GyKernel[3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
+    float GxKernel[3][3] = {
+        {-1, 0, 1}, 
+        {-2, 0, 2}, 
+        {-1, 0, 1}
+        
+    };
+    
+    float GyKernel[3][3] = {
+        {-1, -2, -1}, 
+        {0, 0, 0}, 
+        {1, 2, 1}
+        
+    };
     
     float redGx, greenGx, blueGx, redGy, greenGy, blueGy;
 
@@ -137,9 +149,25 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 }
             }
             
+            if (i >= 0 && i < 2 && j >= 0 && j < 2)
+            {
+                printf("original %i; %i; %i\n", image[i][j].rgbtRed, image[i][j].rgbtGreen, image[i][j].rgbtBlue);
+            }
+            
+            if (i == 0 && j ==0)
+            {
+                printf("%f; %f; %f\n", redGx, greenGx, blueGx);
+                printf("%f; %f; %f\n", redGy, greenGy, blueGy);
+            }
+            
             tmp_image[i][j].rgbtRed = round(hypot(redGx, redGy));
             tmp_image[i][j].rgbtGreen = round(hypot(greenGx, greenGy));
             tmp_image[i][j].rgbtBlue = round(hypot(blueGx, blueGy));
+            
+             if (i == 0 && j ==0)
+            {
+                printf("round %i; %i; %i\n", tmp_image[i][j].rgbtRed, tmp_image[i][j].rgbtGreen, tmp_image[i][j].rgbtBlue);
+            }
             
             
             if(tmp_image[i][j].rgbtRed > 255)
@@ -157,7 +185,11 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 tmp_image[i][j].rgbtBlue = 255;
             }
             
-            
+             if (i == 0 && j ==0)
+            {
+                printf("capped %i; %i; %i\n", tmp_image[i][j].rgbtRed, tmp_image[i][j].rgbtGreen, tmp_image[i][j].rgbtBlue);
+
+            }
 
         }
     }
