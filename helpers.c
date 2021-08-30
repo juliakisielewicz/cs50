@@ -148,32 +148,18 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 }
             }
             
-            /*if (i >= 0 && i < 2 && j >= 0 && j < 2)
-            {
-                printf("original %i; %i; %i\n", image[i][j].rgbtRed, image[i][j].rgbtGreen, image[i][j].rgbtBlue);
-            }
             
-            if (i == 0 && j ==0)
-            {
-                printf("%f; %f; %f\n", redGx, greenGx, blueGx);
-                printf("%f; %f; %f\n", redGy, greenGy, blueGy);
-            }
-            
-*/
             int finalRed = round(hypot(redGx, redGy));
             int finalGreen = round(hypot(greenGx, greenGy));
             int finalBlue = round(hypot(blueGx, blueGy));
 
             
-            
-           // tmp_image[i][j].rgbtRed = finalRed;// > 255 ? 255: finalRed;
-            //tmp_image[i][j].rgbtGreen = finalGreen;// > 255 ? 255: finalGreen;
-            //tmp_image[i][j].rgbtBlue = finalBlue;// > 255 ? 255: finalBlue;
-            
+            //tmp_image[i][j].rgbtRed = finalRed > 255 ? 255: finalRed;
+            //tmp_image[i][j].rgbtGreen = finalGreen > 255 ? 255: finalGreen;
+            //tmp_image[i][j].rgbtBlue = finalBlue > 255 ? 255: finalBlue;
             
             
-            
-            if(tmp_image[i][j].rgbtRed > 255)
+            if(finalRed > 255)
             {
                 tmp_image[i][j].rgbtRed = 255;
             }
@@ -182,7 +168,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 tmp_image[i][j].rgbtRed = finalRed;
             }
             
-            if(tmp_image[i][j].rgbtGreen > 255)
+            if(finalGreen > 255)
             {
                 tmp_image[i][j].rgbtGreen = 255;
             }
@@ -191,7 +177,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 tmp_image[i][j].rgbtGreen = finalGreen;
             }
             
-            if(tmp_image[i][j].rgbtBlue > 255)
+            if(finalBlue > 255)
             {
                 tmp_image[i][j].rgbtBlue = 255;
             }
