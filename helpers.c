@@ -156,6 +156,8 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 tmp_image[i][j].rgbtBlue = 255;
             }
+            
+            
 
         }
     }
@@ -170,7 +172,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             image[i][j].rgbtBlue = tmp_image[i][j].rgbtBlue;
         }
     }
-    
     
     return;
 }
