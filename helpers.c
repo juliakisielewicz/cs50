@@ -132,29 +132,12 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             greenGy = 0.0;
             blueGy = 0.0;
             
-            int iCoords[] = {i-1, i, i+1};
-            int jCoords[] = {j-1, j, j+1};
-            
-            for (int p = 0; p < 3; p++)
+            for (int p = -1; p < 2; p++)
             {
-                for (int q = 0; q < 3; q++)
+                for (int q = -1; q < 2; q++)
                 {
-                    int curRow = iCoords[p];
-                    int curCol = jCoords[q];
-                    
-                    if (curRow >= 0 && curRow < height && curCol >= 0 && curCol < width)
+                    if ((i + p) >= 0 && (i + p) < height && (j + q) >= 0 && (j + q) < width)
                     {
-                        RGBTRIPLE pixel = image[curRow][curCol];
-                        
-                        redGx += GxKernel[p][q] * pixel.rgbtRed;
-                        greenGx += GxKernel[p][q] * pixel.rgbtGreen;
-                        blueGx += GxKernel[p][q] * pixel.rgbtBlue;
-
-                        redGy += GyKernel[p][q] * pixel.rgbtRed;
-                        greenGy += GyKernel[p][q] * pixel.rgbtGreen;
-                        blueGy += GyKernel[p][q] * pixel.rgbtBlue;
-                        
-                        /*
                         redGx = redGx + image[i + p][j + q].rgbtRed * GxKernel[p + 1][q + 1];
                         greenGx = greenGx + image[i + p][j + q].rgbtGreen * GxKernel[p + 1][q + 1];
                         blueGx = blueGx + image[i + p][j + q].rgbtBlue * GxKernel[p + 1][q + 1];
@@ -162,12 +145,11 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                         redGy = redGy + image[i + p][j + q].rgbtRed * GyKernel[p + 1][q + 1];
                         greenGy = greenGy + image[i + p][j + q].rgbtGreen * GyKernel[p + 1][q + 1];
                         blueGy = blueGy + image[i + p][j + q].rgbtBlue * GyKernel[p + 1][q + 1];
-                        */
                     }
                 }
             }
-            
-            /*if (i >= 0 && i < 2 && j >= 0 && j < 2)
+            /*
+            if (i >= 0 && i < 2 && j >= 0 && j < 2)
             {
                 printf("original %i; %i; %i\n", image[i][j].rgbtRed, image[i][j].rgbtGreen, image[i][j].rgbtBlue);
             }
@@ -178,22 +160,15 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 printf("%f; %f; %f\n", redGy, greenGy, blueGy);
             }
             */
-            
-            int finalRed = round(sqrt(redGx * redGx + redGy * redGy));
-            int finalGreen = round(sqrt(greenGx * greenGx + greenGy * greenGy));
-            int finalBlue = round(sqrt(blueGx * blueGx + blueGy * blueGy));
-
-            
-            tmp_image[i][j].rgbtRed = finalRed > 255 ? 255: finalRed;
-            tmp_image[i][j].rgbtGreen = finalGreen > 255 ? 255: finalGreen;
-            tmp_image[i][j].rgbtBlue = finalBlue > 255 ? 255: finalBlue;
-            
+            tmp_image[i][j].rgbtRed = round(hypot(redGx, redGy));
+            tmp_image[i][j].rgbtGreen = round(hypot(greenGx, greenGy));
+            tmp_image[i][j].rgbtBlue = round(hypot(blueGx, blueGy));
             /*
              if (i == 0 && j ==0)
             {
                 printf("round %i; %i; %i\n", tmp_image[i][j].rgbtRed, tmp_image[i][j].rgbtGreen, tmp_image[i][j].rgbtBlue);
             }
-            
+            */
             
             if(tmp_image[i][j].rgbtRed > 255)
             {
@@ -209,7 +184,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 tmp_image[i][j].rgbtBlue = 255;
             }
-            
+            /*
              if (i == 0 && j ==0)
             {
                 printf("capped %i; %i; %i\n", tmp_image[i][j].rgbtRed, tmp_image[i][j].rgbtGreen, tmp_image[i][j].rgbtBlue);
@@ -224,11 +199,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            //image[i][j].rgbtRed = tmp_image[i][j].rgbtRed;
-            //image[i][j].rgbtGreen = tmp_image[i][j].rgbtGreen;
-           // image[i][j].rgbtBlue = tmp_image[i][j].rgbtBlue;
-           
-           image[i][j] = tmp_image[i][j];
+            image[i][j].rgbtRed = tmp_image[i][j].rgbtRed;
+            image[i][j].rgbtGreen = tmp_image[i][j].rgbtGreen;
+            image[i][j].rgbtBlue = tmp_image[i][j].rgbtBlue;
         }
     }
     
