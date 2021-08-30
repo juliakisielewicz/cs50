@@ -154,11 +154,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             int finalBlue = round(hypot(blueGx, blueGy));
 
             
-            //tmp_image[i][j].rgbtRed = finalRed > 255 ? 255: finalRed;
-            //tmp_image[i][j].rgbtGreen = finalGreen > 255 ? 255: finalGreen;
-            //tmp_image[i][j].rgbtBlue = finalBlue > 255 ? 255: finalBlue;
-            
-            
             if(finalRed > 255)
             {
                 tmp_image[i][j].rgbtRed = 255;
