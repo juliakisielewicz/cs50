@@ -119,7 +119,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     };
     
     float redGx, greenGx, blueGx, redGy, greenGy, blueGy;
-
     
     for (int i = 0; i < height; i++)
     {
@@ -160,10 +159,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 printf("%f; %f; %f\n", redGy, greenGy, blueGy);
             }
             
-            
-            int finalRed = round(sqrt(redGx * redGx + redGy * redGy));
-            int finalGreen = round(sqrt(greenGx * greenGx + greenGy * greenGy));
-            int finalBlue = round(sqrt(blueGx * blueGx + blueGy * blueGy));
 */
             int finalRed = round(hypot(redGx, redGy));
             int finalGreen = round(hypot(greenGx, greenGy));
@@ -171,15 +166,11 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
 
             
             
-            tmp_image[i][j].rgbtRed = finalRed > 255 ? 255: finalRed;
-            tmp_image[i][j].rgbtGreen = finalGreen > 255 ? 255: finalGreen;
-            tmp_image[i][j].rgbtBlue = finalBlue > 255 ? 255: finalBlue;
+            tmp_image[i][j].rgbtRed = finalRed;// > 255 ? 255: finalRed;
+            tmp_image[i][j].rgbtGreen = finalGreen;// > 255 ? 255: finalGreen;
+            tmp_image[i][j].rgbtBlue = finalBlue;// > 255 ? 255: finalBlue;
             
-            /*
-             if (i == 0 && j ==0)
-            {
-                printf("round %i; %i; %i\n", tmp_image[i][j].rgbtRed, tmp_image[i][j].rgbtGreen, tmp_image[i][j].rgbtBlue);
-            }
+            
             
             
             if(tmp_image[i][j].rgbtRed > 255)
@@ -196,13 +187,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 tmp_image[i][j].rgbtBlue = 255;
             }
-            
-             if (i == 0 && j ==0)
-            {
-                printf("capped %i; %i; %i\n", tmp_image[i][j].rgbtRed, tmp_image[i][j].rgbtGreen, tmp_image[i][j].rgbtBlue);
-
-            }
-*/
+        
         }
     }
     
