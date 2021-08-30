@@ -104,14 +104,14 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
 {
     RGBTRIPLE tmp_image[height][width];
 
-    float GxKernel[3][3] = {
+    int GxKernel[3][3] = {
         {-1, 0, 1}, 
         {-2, 0, 2}, 
         {-1, 0, 1}
         
     };
     
-    float GyKernel[3][3] = {
+    int GyKernel[3][3] = {
         {-1, -2, -1}, 
         {0, 0, 0}, 
         {1, 2, 1}
@@ -178,16 +178,22 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 printf("%f; %f; %f\n", redGy, greenGy, blueGy);
             }
             */
-            tmp_image[i][j].rgbtRed = round(hypot(redGx, redGy));
-            tmp_image[i][j].rgbtGreen = round(hypot(greenGx, greenGy));
-            tmp_image[i][j].rgbtBlue = round(hypot(blueGx, blueGy));
+            
+            int finalRed = round(sqrt(redGx * redGx + redGy * redGy));
+            int finalGreen = round(sqrt(greenGx * greenGx + greenGy * greenGy));
+            int finalBlue = round(sqrt(blueGx * blueGx + blueGy * blueGy));
+
+            
+            tmp_image[i][j].rgbtRed = finalRed > 255 ? 255: finalRed;
+            tmp_image[i][j].rgbtGreen = finalGreen > 255 ? 255: finalGreen;
+            tmp_image[i][j].rgbtBlue = finalBlue > 255 ? 255: finalBlue;
             
             /*
              if (i == 0 && j ==0)
             {
                 printf("round %i; %i; %i\n", tmp_image[i][j].rgbtRed, tmp_image[i][j].rgbtGreen, tmp_image[i][j].rgbtBlue);
             }
-            */
+            
             
             if(tmp_image[i][j].rgbtRed > 255)
             {
@@ -203,7 +209,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 tmp_image[i][j].rgbtBlue = 255;
             }
-            /*
+            
              if (i == 0 && j ==0)
             {
                 printf("capped %i; %i; %i\n", tmp_image[i][j].rgbtRed, tmp_image[i][j].rgbtGreen, tmp_image[i][j].rgbtBlue);
