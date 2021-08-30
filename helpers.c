@@ -126,20 +126,20 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 {
                     if ((i + p) >= 0 && (i + p) < height && (j + q) >= 0 && (j + q) < width)
                     {
-                        redGx = redGx + image[i + p][j + q].rgbtRed * GxKernel[p][q];
-                        greenGx = greenGx + image[i + p][j + q].rgbtGreen * GxKernel[p][q];
-                        blueGx = blueGx + image[i + p][j + q].rgbtBlue * GxKernel[p][q];
+                        redGx = redGx + image[i + p][j + q].rgbtRed * GxKernel[p + 1][q + 1];
+                        greenGx = greenGx + image[i + p][j + q].rgbtGreen * GxKernel[p + 1][q + 1];
+                        blueGx = blueGx + image[i + p][j + q].rgbtBlue * GxKernel[p + 1][q + 1];
                         
-                        redGy = redGy + image[i + p][j + q].rgbtRed * GyKernel[p][q];
-                        greenGy = greenGy + image[i + p][j + q].rgbtGreen * GyKernel[p][q];
-                        blueGy = blueGy + image[i + p][j + q].rgbtBlue * GyKernel[p][q];
+                        redGy = redGy + image[i + p][j + q].rgbtRed * GyKernel[p + 1][q + 1];
+                        greenGy = greenGy + image[i + p][j + q].rgbtGreen * GyKernel[p + 1][q + 1];
+                        blueGy = blueGy + image[i + p][j + q].rgbtBlue * GyKernel[p + 1][q + 1];
                     }
                 }
             }
             
-            tmp_image[i][j].rgbtRed = round(pow(redGx, 2) + pow(redGy, 2));
-            tmp_image[i][j].rgbtGreen = round(pow(greenGx, 2) + pow(greenGy, 2));
-            tmp_image[i][j].rgbtBlue = round(pow(blueGx, 2) + pow(blueGy, 2));
+            tmp_image[i][j].rgbtRed = round(hypot(redGx, redGy));
+            tmp_image[i][j].rgbtGreen = round(hypot(greenGx, greenGy));
+            tmp_image[i][j].rgbtBlue = round(hypot(blueGx, blueGy));
             
             
             if(tmp_image[i][j].rgbtRed > 255)
@@ -156,13 +156,21 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 tmp_image[i][j].rgbtBlue = 255;
             }
-            
-            
-            
-            
 
         }
     }
+    
+    
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            image[i][j].rgbtRed = tmp_image[i][j].rgbtRed;
+            image[i][j].rgbtGreen = tmp_image[i][j].rgbtGreen;
+            image[i][j].rgbtBlue = tmp_image[i][j].rgbtBlue;
+        }
+    }
+    
     
     return;
 }
