@@ -149,7 +149,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 }
             }
             
-            if (i >= 0 && i < 2 && j >= 0 && j < 2)
+            /*if (i >= 0 && i < 2 && j >= 0 && j < 2)
             {
                 printf("original %i; %i; %i\n", image[i][j].rgbtRed, image[i][j].rgbtGreen, image[i][j].rgbtBlue);
             }
@@ -159,16 +159,17 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 printf("%f; %f; %f\n", redGx, greenGx, blueGx);
                 printf("%f; %f; %f\n", redGy, greenGy, blueGy);
             }
-            
+            */
             tmp_image[i][j].rgbtRed = round(hypot(redGx, redGy));
             tmp_image[i][j].rgbtGreen = round(hypot(greenGx, greenGy));
             tmp_image[i][j].rgbtBlue = round(hypot(blueGx, blueGy));
             
+            /*
              if (i == 0 && j ==0)
             {
                 printf("round %i; %i; %i\n", tmp_image[i][j].rgbtRed, tmp_image[i][j].rgbtGreen, tmp_image[i][j].rgbtBlue);
             }
-            
+            */
             
             if(tmp_image[i][j].rgbtRed > 255)
             {
@@ -184,13 +185,13 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 tmp_image[i][j].rgbtBlue = 255;
             }
-            
+            /*
              if (i == 0 && j ==0)
             {
                 printf("capped %i; %i; %i\n", tmp_image[i][j].rgbtRed, tmp_image[i][j].rgbtGreen, tmp_image[i][j].rgbtBlue);
 
             }
-
+*/
         }
     }
     
