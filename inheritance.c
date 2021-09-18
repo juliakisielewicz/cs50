@@ -21,7 +21,7 @@ const int INDENT_LENGTH = 4;
 person *create_family(int generations);
 void print_family(person *p, int generation);
 void free_family(person *p);
-char random_allele();
+allele_true random_allele();
 
 int main(void)
 {
