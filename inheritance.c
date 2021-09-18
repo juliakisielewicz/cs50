@@ -5,11 +5,13 @@
 #include <stdlib.h>
 #include <time.h>
 
+typedef char allele_true;
+
 // Each person has two parents and two alleles
 typedef struct person
 {
     struct person *parents[2];
-    char alleles[2];
+    allele_true alleles[2];
 }
 person;
 
