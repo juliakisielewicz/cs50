@@ -51,11 +51,10 @@ person *create_family(int generations)
         p->parents[1] = create_family(generations - 1);
 
         // TODO: Randomly assign child alleles based on parents
-        //int n = rand() % 2;
         p->alleles[0] = p->parents[0]->alleles[rand() % 2];
         p->alleles[1] = p->parents[1]->alleles[rand() % 2];
 
-        }
+    }
 
     // Generation without parent data
     else
@@ -78,7 +77,7 @@ person *create_family(int generations)
 void free_family(person *p)
 {
     // TODO: Handle base case
-    if(p == NULL)
+    if (p == NULL)
     {
         return;
     }
