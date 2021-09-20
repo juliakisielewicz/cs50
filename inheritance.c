@@ -5,13 +5,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-typedef char allele_true;
-
 // Each person has two parents and two alleles
 typedef struct person
 {
     struct person *parents[2];
-    allele_true alleles[2];
+    char alleles[2];
 }
 person;
 
@@ -21,7 +19,7 @@ const int INDENT_LENGTH = 4;
 person *create_family(int generations);
 void print_family(person *p, int generation);
 void free_family(person *p);
-allele_true random_allele();
+char random_allele();
 
 int main(void)
 {
@@ -53,9 +51,9 @@ person *create_family(int generations)
         p->parents[1] = create_family(generations - 1);
 
         // TODO: Randomly assign child alleles based on parents
-        int n = rand() % 2;
-        p->alleles[0] = p->parents[n]->alleles[rand() % 2];
-        p->alleles[1] = p->parents[!n]->alleles[rand() % 2];
+        //int n = rand() % 2;
+        p->alleles[0] = p->parents[0]->alleles[rand() % 2];
+        p->alleles[1] = p->parents[1check50 cs50/labs/2021/x/inheritance]->alleles[rand() % 2];
 
         }
 
@@ -117,7 +115,7 @@ void print_family(person *p, int generation)
 }
 
 // Randomly chooses a blood type allele.
-allele_true random_allele()
+char random_allele()
 {
     int r = rand() % 3;
     if (r == 0)
