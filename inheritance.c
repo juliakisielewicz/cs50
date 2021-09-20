@@ -53,7 +53,7 @@ person *create_family(int generations)
         // TODO: Randomly assign child alleles based on parents
         //int n = rand() % 2;
         p->alleles[0] = p->parents[0]->alleles[rand() % 2];
-        p->alleles[1] = p->parents[1check50 cs50/labs/2021/x/inheritance]->alleles[rand() % 2];
+        p->alleles[1] = p->parents[1]->alleles[rand() % 2];
 
         }
 
