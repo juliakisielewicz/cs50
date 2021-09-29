@@ -1,11 +1,10 @@
 import sys
 import csv
 
-
 def main():
     if len(sys.argv) != 3:
         print("Usage: python dna.py CSV TXT")
-        sys.exit()
+        sys.exit(1)
 
     database = []
     STRs = set()
@@ -21,37 +20,38 @@ def main():
             database.append(row)
 
     with open(sys.argv[2]) as txt_file:
-        dna = txt_file.read().replace("\n", "")
+        dna = txt_file.read()
 
     stats = {}
-    for item in STRs:
-            stats[item] = repetitions(dna, item)
+    for STR in STRs:
+        stats[STR] = repetitions(dna, STR)
 
     for row in database:
         match = 0
-        for seq in STRs:
-            if row[seq] == stats[seq]:
+        for STR in STRs:
+            if row[STR] == stats[STR]:
                 match += 1
         if match == len(STRs):
             print(row["name"])
+            exit(0)
     
-    if match != len(STRs):    
-        print("No match")
+    print("No match")
 
 def repetitions(sequence, STR):
     length = len(STR)
     count = 0
-    maximum = []
-    c = 0
-    while c < len(sequence) - length + 1:
-        if sequence[c:(c+length)] == STR:
-            count += 1
-            c += length
+    tmp = 0
+    i = 0
+    while i < len(sequence) - length + 1:
+        if sequence[i:(i+length)] == STR:
+            tmp += 1
+            i += length
         else:
-            c += 1
-            maximum.append(count)
-            count = 0
-    return max(maximum)
+            if count < tmp:
+                count = tmp
+            i += 1
+            tmp = 0
+    return count
 
 
 if __name__ == "__main__":
