@@ -15,7 +15,6 @@ for i in range(count - 1, -1, -1):
             sum += (int(number[i]) * 2) % 10 + floor(int(number[i]) * 2 / 10)
         else:
             sum += int(number[i]) * 2
-            
 
 if sum % 10 == 0:
     if count == 15 and int(number[0]) == 3 and int(number[1]) in [4, 7]:
