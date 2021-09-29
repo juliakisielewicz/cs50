@@ -1,37 +1,34 @@
-from cs50 import get_int
+from cs50 import get_string
 from math import floor
 
-number = get_int("Number: ")
+number = get_string("Number: ")
 
-n = number
-count = 0
-sum1 = 0
-sum2 = 0
+count = len(number)
+sum = 0
 
-while n != 0:
-    if count % 2 == 0:
-        sum1 += n % 10
+for i in range(count - 1, -1, -1):
+    if (count - 1 - i) % 2 == 0:
+        sum += int(number[i])
+        
     else:
-        tmp = 2 * (n % 10)
-        if tmp > 9:
-            sum2 += (tmp % 10) + floor(tmp / 10)
+        if int(number[i]) * 2 > 9:
+            sum += (int(number[i]) * 2) % 10 + floor(int(number[i]) * 2 / 10)
         else:
-            sum2 += tmp
-    
-    n = floor(n / 10)
-    count += 1
-    
-checksum = sum1 + sum2
+            sum += int(number[i]) * 2
+            
 
-if checksum % 10 == 0:
-    if count == 15 and floor(number / (10 ** 13)) == 34 or floor(number / (10 ** 13)) == 37:
+if sum % 10 == 0:
+    if count == 15 and int(number[0]) == 3 and int(number[1]) in [4, 7]:
         print("AMEX")
-    elif count == 16 and floor(number / (10 ** 14)) in range(51, 56): # == 51 or number / (10 ** 14) == 52 or number / (10 ** 14) == 53 or number / (10 ** 14) == 54 or number / (10, 14) == 55)) 
+    elif count == 16 and int(number[0]) == 5 and int(number[1]) in range(51, 56):
         print("MASTERCARD")
-    elif ((count == 13 and floor(number / (10 ** 12) == 4)) or (count == 16 and floor(number / (10 ** 15)) == 4)):
+    elif (count == 13 or count == 16) and int(number[0]) == 4:
         print("VISA")
     else:
         print("INVALID")
-    
 else:
     print("INVALID")
+    
+    
+    
+    
