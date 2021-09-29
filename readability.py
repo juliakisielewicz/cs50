@@ -39,7 +39,6 @@ def calculateIndex(txt):
     index = round(0.0588 * letters * 100 / words - 0.296 * sentences * 100 / words - 15.8)
 
     return index
-    check50 cs50/problems/2021/x/sentimental/readability
     
 if __name__ == "__main__":
     main()
