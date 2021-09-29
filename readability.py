@@ -1,19 +1,15 @@
 from cs50 import get_string
 
-
 def main():
     
     text = get_string("Text: ")
 
     grade = calculateIndex(text)
     
-    #Display result
     if grade < 1:
         print("Before Grade 1")
-    
     elif grade >= 16:
         print("Grade 16+")
-    
     else:
         print(f"Grade {grade}")
 
