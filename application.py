@@ -67,29 +67,29 @@ def index():
 @login_required
 def top_up():
     """ Add additional cash to the account """
-    
+
     if request.method == "POST":
-        
+
         user_id = session["user_id"]
-    
+
         try:
             additional = float(request.form.get("cash"))
         except:
             return apology("must provide number")
-        
+
         if additional <= 0:
             return apology("must provide positive number")
-            
+
         current = db.execute("SELECT cash FROM users WHERE id = ?", user_id)[0]["cash"]
-        
+
         db.execute("UPDATE users SET cash = ? WHERE id = ?", current + additional, user_id)
 
         return redirect("/")
-        
+
     else:
-        
+
         return render_template("top_up.html")
-        
+
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
@@ -103,16 +103,16 @@ def buy():
         try:
             shares = int(request.form.get("shares"))
         except:
-            return apology("must provide integer", 403)
+            return apology("must provide integer")
 
         if not symbol:
-            return apology("must provide symbol", 403)
+            return apology("must provide symbol")
 
         if api_data is None:
-            return apology("incorrect symbol", 403)
+            return apology("incorrect symbol")
 
         if shares <= 0:
-            return apology("must provide positive integer", 403)
+            return apology("must provide positive integer")
 
 
         price = api_data["price"]
@@ -139,11 +139,11 @@ def buy():
 @login_required
 def history():
     """Show history of transactions"""
-    
+
     user_id = session["user_id"]
 
     hist = db.execute("SELECT symbol, shares, price, date FROM transactions WHERE user_id = ?", user_id)
-    
+
     return render_template("history.html", history=hist)
 
 
@@ -202,17 +202,14 @@ def quote():
     if request.method == "POST":
 
         if not request.form.get("symbol"):
-            return apology("must provide symbol", 403)
+            return apology("must provide symbol")
 
         if lookup(request.form.get("symbol")) is None:
-            return apology("incorrect symbol", 403)
-
+            return apology("incorrect symbol")
 
         share = lookup(request.form.get("symbol"))
 
-
         return render_template("quoted.html", name=share["name"], symbol=share["symbol"], price=share["price"])
-
 
     else:
         return render_template("quote.html")
@@ -225,22 +222,22 @@ def register():
 
         # Ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username", 403)
+            return apology("must provide username")
 
         # Ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password", 403)
+            return apology("must provide password")
 
         elif not request.form.get("confirmation"):
-            return apology("must provide password second time", 403)
+            return apology("must provide password second time")
 
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
         if len(rows) != 0:
-            return apology("username already exists", 403)
+            return apology("username already exists")
 
         if request.form.get("password") != request.form.get("confirmation"):
-            return apology("passwords don't match", 403)
+            return apology("passwords don't match")
 
         hash = generate_password_hash(request.form.get("password"))
 
@@ -278,19 +275,19 @@ def sell():
 
 
         for item in owned:
-            
+
             if item["symbol"] == symbol:
                 if shares > item["shares"]:
                     return apology("not enough shares available", 403)
-                    
+
 
         cash = db.execute("SELECT cash FROM users WHERE id = ?", user_id)[0]['cash']
-        
+
         price = (lookup(symbol))["price"]
-        
+
         total_income = price * shares
 
-        
+
         db.execute("UPDATE users SET cash = ? WHERE id = ?", cash + total_income, user_id)
 
         db.execute("INSERT INTO transactions (user_id, type, symbol, name, shares, price) VALUES (?, ?, ?, ?, ?, ?)", user_id, "sell", symbol, (lookup(symbol))["name"], -shares, price)
