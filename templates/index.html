@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Summary
+{% endblock %}
+
+{% block main %}
+    <div class="section">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Name</th>
+                            <th>Shares</th>
+                            <th>Price</th>
+                            <th>TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in stocks %}
+                            <tr>
+                                <td>{{ item.symbol }}</td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.shares }}</td>
+                                <td>{{ item.price | usd }}</td>
+                                <td>{{ (item.shares * item.price) | usd }}</td>
+                            </tr>
+                        {% endfor %}
+                            <tr>
+                                <td>CASH</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>{{ cash | usd }}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><b>{{ grand_total  | usd }}</b></td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+{% endblock %}
