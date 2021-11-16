@@ -265,20 +265,20 @@ def sell():
         try:
             shares = int(request.form.get("shares"))
         except:
-            return apology("must provide integer", 403)
+            return apology("must provide integer")
 
         if not symbol:
-            return apology("must provide symbol", 403)
+            return apology("must provide symbol")
 
         if shares <= 0:
-            return apology("must provide positive integer", 403)
+            return apology("must provide positive integer")
 
 
         for item in owned:
 
             if item["symbol"] == symbol:
                 if shares > item["shares"]:
-                    return apology("not enough shares available", 403)
+                    return apology("not enough shares available")
 
 
         cash = db.execute("SELECT cash FROM users WHERE id = ?", user_id)[0]['cash']
