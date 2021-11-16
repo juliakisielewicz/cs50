@@ -56,7 +56,7 @@ def index():
         item["price"] = (lookup(item["symbol"]))["price"]
         grand_total += item["shares"] * item["price"]
 
-    cash = (db.execute("SELECT * FROM users"))[0]['cash']
+    cash = (db.execute("SELECT * FROM users WHERE id = ?", user_id))[0]['cash']
 
     grand_total = grand_total + cash
 
